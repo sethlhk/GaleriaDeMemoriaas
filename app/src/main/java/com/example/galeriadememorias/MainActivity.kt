@@ -1,10 +1,16 @@
-ackage com.example.galeriadememorias
+
+
+package com.example.galeriadememorias
+
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Card
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -30,14 +36,34 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
+@Composable
+fun GaleriaDeMemorias(
+    idImage: Int,
+    idTexto: Int
+){
+ Card() {
+
+     Column() {
+
+      Image(painter = painterResource(id = idImage)
+          , contentDescription = null
+      )
+
+         Text(text = stringResource(id = idTexto))
+        }
+    }
+ }
 @Preview
 @Composable
-fun GaleriaDeMemoria(){
-
-    Column() {
-        Image(painter =
-            , contentDescription =
-        )
+fun PreviewMoldura(){
+    GaleriaDeMemoriasTheme{
+        Column() {
+            GaleriaDeMemorias(idImage = R.drawable.bielzin
+                , idTexto =R.string.bielzin
+            )
+        }
     }
 }
 
