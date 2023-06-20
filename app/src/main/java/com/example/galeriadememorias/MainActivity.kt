@@ -12,12 +12,19 @@ import androidx.compose.material3.Card
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.galeriadememorias.model.IdImageDescricao
 import com.example.galeriadememorias.ui.theme.GaleriaDeMemoriasTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,8 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-                }
+                    GaleriaMemorias()
             }
         }
     }
@@ -39,31 +45,49 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun GaleriaDeMemorias(
-    idImage: Int,
-    idTexto: Int
-){
+fun GaleriaMemorias(){
+
+    LazyColumn(){
+        items(FontDeDdos().CarregaListaDados())
+ {     galeriaDeMemorias ->GaleriaDeMemorias(galeriaDeMemorias)
+ }
+    }
+
+}
+
+
+@Composable
+fun GaleriaDeMemorias(IdImageDescricao:IdImageDescricao){
  Card() {
 
      Column() {
 
-      Image(painter = painterResource(id = idImage)
-          , contentDescription = null
+      Image(painter = painterResource(id = IdImageDescricao.idImage)
+          , contentDescription = null,
+          contentScale =  ContentScale.Companion.Crop,
+          modifier = Modifier
+              .size(300.dp)
       )
 
-         Text(text = stringResource(id = idTexto))
+              (Text(text = stringResource(id = IdImageDescricao.idTexto),
+                  fontSize = 25.sp,
+                  modifier = Modifier
+                      .size(5.dp)
+              ))
+
         }
     }
  }
 @Preview
 @Composable
-fun PreviewMoldura(){
-    GaleriaDeMemoriasTheme{
+fun PreviewMoldura() {
+    GaleriaDeMemoriasTheme {
         Column() {
-            GaleriaDeMemorias(idImage = R.drawable.bielzin
-                , idTexto =R.string.bielzin
+            GaleriaDeMemorias(
+                IdImageDescricao(R.drawable.bielzin, R.string.bielzin)
             )
         }
     }
+}
 }
 
